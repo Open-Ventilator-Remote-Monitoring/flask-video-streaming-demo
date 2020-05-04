@@ -25,5 +25,11 @@ class Camera(BaseCamera):
             # read current frame
             _, img = camera.read()
 
+            height, width, layers = img.shape
+            new_h = int(height/2)
+            new_w = int(width/2)
+
+            resize = cv2.resize(img, (new_w, new_h))
+
             # encode as a jpeg image and return it
-            yield cv2.imencode('.jpg', img)[1].tobytes()
+            yield cv2.imencode('.jpg', resize)[1].tobytes()
